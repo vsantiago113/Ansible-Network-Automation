@@ -1,5 +1,5 @@
 ---
 collections:
   - name: cisco.ios
-  - name: cisco_nxos
+  - name: cisco.nxos
 ...
