@@ -1,5 +1,12 @@
 ---
-- name: nxos - Create VLAN
-  ansible.builtin.debug:
-    var: ansible_network_os
+- name: Gather vlans facts from the device using nxos_vlans
+  cisco.nxos.nxos_vlans:
+    state: "{{ vlan_config_state }}"
+  when: vlan_config_state == 'gathered'
+
+- name: VLAN configuration with state - "{{ vlan_config_state }}"
+  cisco.nxos.nxos_vlans:
+    config: "{{ vlan_configs | from_yaml }}"
+    state: "{{ vlan_config_state }}"
+  when: vlan_config_state != 'gathered'
 ...
