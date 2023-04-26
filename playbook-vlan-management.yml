@@ -1,0 +1,7 @@
+---
+- name: A playbook to manage VLANS
+  hosts: all
+  gather_facts: false
+  roles:
+    - name: vlan_management
+...

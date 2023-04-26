@@ -1,0 +1,15 @@
+---
+- ansible.builtin.fail:
+    msg: Unable to automatically determine host network os. Please manually configure ansible_network_os value for this host
+  when: ansible_network_os is undefined
+
+- ansible.builtin.include_tasks:
+    file: ios.yml
+  when: (ansible_network_os == 'ios') or
+        (ansible_network_os == 'cisco.ios.ios')
+
+- ansible.builtin.include_tasks:
+    file: nxos.yml
+  when: (ansible_network_os == 'nxos') or
+        (ansible_network_os == 'cisco.nxos.nxos')
+...
