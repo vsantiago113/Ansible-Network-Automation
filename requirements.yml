@@ -1,5 +1,20 @@
 ---
 collections:
-  - name: cisco.ios
-  - name: cisco.nxos
+  - cisco.aci
+  - cisco.asa
+  - cisco.dnac
+  - cisco.intersight
+  - cisco.ios
+  - cisco.iosxr
+  - cisco.ise
+  - cisco.meraki
+  - cisco.mso
+  - cisco.nso
+  - cisco.nxos
+  - cisco.ucs
+  - community.network
+  - community.general
+  - community.routeros
+  - vyos.vyos
+  - ansible.utils
 ...

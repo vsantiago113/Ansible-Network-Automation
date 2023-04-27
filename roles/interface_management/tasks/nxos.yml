@@ -1,0 +1,12 @@
+---
+- name: Gather interfaces facts from the device using nxos_interfaces
+  cisco.nxos.nxos_interfaces:
+    state: "{{ interface_config_state }}"
+  when: interface_config_state == 'gathered'
+
+- name: Interface configuration with state - "{{ interface_config_state }}"
+  cisco.nxos.nxos_interfaces:
+    config: "{{ interface_configs | ansible.builtin.from_yaml }}"
+    state: "{{ interface_config_state }}"
+  when: interface_config_state != 'gathered'
+...

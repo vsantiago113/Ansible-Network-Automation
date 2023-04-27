@@ -1,0 +1,12 @@
+galaxy_info:
+  role_name: vlan_management
+  author: Victor M Santiago
+  description: This role is used to manage VLAN configs in switches.
+  issue_tracker_url: https://github.com/vsantiago113/Ansible-Network-Automation/issues
+  license: MIT
+  min_ansible_version: core 2.11
+  galaxy_tags:
+    - network
+    - cisco
+    - switch
+    - vlan

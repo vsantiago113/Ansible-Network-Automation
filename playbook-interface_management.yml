@@ -1,0 +1,7 @@
+---
+- name: A playbook to manage a switch interfaces
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: interface_management
+...

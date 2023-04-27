@@ -6,7 +6,7 @@
 
 - name: VLAN configuration with state - "{{ vlan_config_state }}"
   cisco.nxos.nxos_vlans:
-    config: "{{ vlan_configs | from_yaml }}"
+    config: "{{ vlan_configs | ansible.builtin.from_yaml }}"
     state: "{{ vlan_config_state }}"
   when: vlan_config_state != 'gathered'
 ...
