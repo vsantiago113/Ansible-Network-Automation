@@ -1,11 +1,29 @@
 ---
-- name: Gather interfaces facts from the device using ios_l2_interfaces
-  cisco.ios.ios_l2_interfaces:
-    state: "{{ interface_config_state }}"
+- name: Gather interfaces facts
   when: interface_config_state == 'gathered'
+  block:
+    - name: Gather interfaces facts from the device using ios_interfaces
+      cisco.ios.ios_interfaces:
+        state: "{{ interface_config_state }}"
+      register: interfaces_facts_output
+
+    - name: Display all interfaces facts
+      ansible.builtin.debug:
+        var: interfaces_facts_output
+      when: get_interface is undefined
+
+    - name: Display only specified interfaces facts
+      when: get_interface is defined
+      block:
+        - name: Display interfaces facts
+          ansible.builtin.debug:
+            msg: "{{ item }}"
+          loop: "{{ interfaces_facts_output['gathered'] }}"
+          when:
+            - item.name | regex_search(get_interface | string | trim, ignorecase=True)
 
 - name: Interface configuration with state - "{{ interface_config_state }}"
-  cisco.ios.ios_l2_interfaces:
+  cisco.ios.ios_interfaces:
     config: "{{ interface_configs | ansible.builtin.from_yaml }}"
     state: "{{ interface_config_state }}"
   when: interface_config_state != 'gathered'

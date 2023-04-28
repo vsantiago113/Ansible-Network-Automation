@@ -1,8 +1,26 @@
 ---
-- name: Gather vlans facts from the device using nxos_vlans
-  cisco.nxos.nxos_vlans:
-    state: "{{ vlan_config_state }}"
+- name: Gather vlans facts
   when: vlan_config_state == 'gathered'
+  block:
+    - name: Gather vlans facts from the device using nxos_vlans
+      cisco.nxos.nxos_vlans:
+        state: "{{ vlan_config_state }}"
+      register: vlans_facts_output
+
+    - name: Display all vlans facts
+      ansible.builtin.debug:
+        var: vlans_facts_output
+      when: get_vlan is undefined
+
+    - name: Display only specified vlans facts
+      when: get_vlan is defined
+      block:
+        - name: Display vlans facts
+          ansible.builtin.debug:
+            msg: "{{ item }}"
+          loop: "{{ vlans_facts_output['gathered'] }}"
+          when:
+            - item.name | regex_search(get_vlan | string | trim, ignorecase=True)
 
 - name: VLAN configuration with state - "{{ vlan_config_state }}"
   cisco.nxos.nxos_vlans:

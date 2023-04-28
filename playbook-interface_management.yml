@@ -4,4 +4,6 @@
   gather_facts: false
   roles:
     - role: interface_management
+      vars:
+        interface_config_state: gathered
 ...
